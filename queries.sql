@@ -38,3 +38,27 @@ JOIN roles
 ON experiences."roleId" = roles.id
 WHERE experiences."endDate" IS NULL AND users.id = 50;
 
+
+-- Bonus
+-- This query isn't returning any rows, but I'm not quite sure why.
+
+SELECT schools.id AS id, schools.name AS school, courses.name AS course,
+companies.name AS company, roles.name as role FROM users
+JOIN educations
+ON educations."userId" = users.id
+JOIN schools
+ON schools.id = educations."schoolId"
+JOIN courses
+ON courses.id = educations."courseId"
+JOIN experiences
+ON experiences."userId" = users.id
+JOIN companies
+ON experiences."companyId" = companies.id
+JOIN roles
+ON experiences."roleId" = roles.id
+JOIN applicants
+ON applicants."userId" = users.id
+JOIN jobs
+ON applicants."jobId" = jobs.id
+WHERE jobs.active AND companies.id = 10
+AND roles.name LIKE 'Software Engineer';
